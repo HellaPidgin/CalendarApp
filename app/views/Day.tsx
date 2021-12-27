@@ -1,10 +1,14 @@
+// Global imports
 import React, { useContext, useState } from 'react'
 import { View, Text, Alert } from 'react-native'
 import styled from 'styled-components/native';
+
+// Local imports
 import { AppProviderContext } from '../provider';
 import { Container } from '../shared/styles'
 import { Palette } from '../utils';
 
+//Styled components
 export const TouchableTimeSlot = styled.TouchableOpacity`
   border-radius: 5px;
   border-width: 1px;
@@ -27,10 +31,11 @@ const DayText = styled.Text`
 `;
 
 export default function Day() {
-    const [dayTimes, setDayTimes] = useState([])
+  // useContext Dependencies
     const globalAppState = useContext(AppProviderContext);
     
     const handleTimePress = (time: string) => {
+      // Creates a new selected time entry.
       if (globalAppState.selectedTime.length > 0){
         if(globalAppState.selectedTime === time){
           Alert.alert("This time has already been selected");

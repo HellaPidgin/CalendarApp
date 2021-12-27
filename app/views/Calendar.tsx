@@ -1,3 +1,4 @@
+// Global Imports
 import React, { useContext, useEffect, useState } from "react";
 import {
   View,
@@ -6,17 +7,17 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-
 import styled from "styled-components/native";
 import { MaterialIcons } from "@expo/vector-icons";
+
+// Local Imports
 import { getDaysInMonth, month, Palette } from "../utils";
 import { daysAvailable } from "../api/availableDates";
 import { AppProviderContext } from "../provider";
 import { Container } from "../shared/styles";
-
 const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
 
+// Styled Components
 const MonthContainer = styled.View`
   flex-direction: row;
   align-items: center;
@@ -54,17 +55,16 @@ const SignalLight = styled.View`
     background-color ${Palette.CaribbeanGreen}
 `;
 
-// Arrange the Calendar
-// Sync the Shedule
-// Refresh the Calendar
 
 export default function Calendar(props: {
   navigation: { navigate: (arg0: string) => void };
 }) {
+  // useState dependencies
   const [daysOfTheMonth, setDaysOfTheMonth] = useState<Date[] | undefined>();
   const [activeMonth, setMonth] = useState<number>(0);
   const [activeYear, setYear] = useState<number>(0);
-
+  
+  // use dependencies
   const globalAppState = useContext(AppProviderContext);
 
   useEffect(() => {
@@ -79,6 +79,7 @@ export default function Calendar(props: {
   }, []);
 
   const prevMonth = () => {
+    // Changes current month to previous month
     if (activeMonth != 0) {
       const days = getDaysInMonth(activeMonth - 1, activeYear);
       setDaysOfTheMonth(days);
@@ -91,6 +92,7 @@ export default function Calendar(props: {
     }
   };
   const nextMonth = () => {
+    // Changes current month to next month
     if (activeMonth != 11) {
       const days = getDaysInMonth(activeMonth + 1, activeYear);
       setDaysOfTheMonth(days);
